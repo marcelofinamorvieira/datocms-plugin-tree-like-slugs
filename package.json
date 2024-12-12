@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugin-tree-like-slugs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": false,
   "homepage": "https://github.com/marcelofinamorvieira/datocms-plugin-tree-like-slugs",
   "description": "A plugin that makes it so the slugs in tree-like records are passed down to the child records",
