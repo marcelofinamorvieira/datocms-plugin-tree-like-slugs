@@ -1,5 +1,4 @@
 import {
-  IntentCtx,
   RenderFieldExtensionCtx,
   connect,
 } from 'datocms-plugin-sdk';
@@ -13,7 +12,7 @@ connect({
   renderConfigScreen(ctx) {
     return render(<ConfigScreen ctx={ctx} />);
   },
-  manualFieldExtensions(ctx: IntentCtx) {
+  manualFieldExtensions() {
     return [
       {
         id: 'treeLikeSlugs',
@@ -30,13 +29,18 @@ connect({
     }
   },
   async onBeforeItemUpsert(createOrUpdateItemPayload, ctx) {
+    if(!ctx.currentUserAccessToken) {
+      await ctx.alert('This user does not have permission to run this plugin. It needs the currentUserAccessToken.');
+      return true;
+    }
+
     if (ctx.plugin.attributes.parameters.onPublish) {
       return true;
     }
 
     let fieldUsingThisPlugin: Array<string> = [];
 
-    (await ctx.loadFieldsUsingPlugin()).map((field) => {
+    (await ctx.loadFieldsUsingPlugin()).forEach((field) => {
       fieldUsingThisPlugin.push(field.attributes.api_key);
     });
 
@@ -61,10 +65,10 @@ connect({
       return true;
     }
 
-    updateAllChildrenSlugs(
-      ctx.currentUserAccessToken as string,
+    await updateAllChildrenSlugs(
+      ctx.currentUserAccessToken,
       createOrUpdateItemPayload.data.relationships!.item_type!.data.id,
-      (createOrUpdateItemPayload.data as any).id, //i shouldn't have to cast this to any
+      createOrUpdateItemPayload.data.id!,
       updatedFieldKey,
       createOrUpdateItemPayload.data.attributes![updatedFieldKey] as string
     );

@@ -23,7 +23,7 @@ export default async function updateAllChildrenSlugs(
   });
 
   if (records.length) {
-    records.forEach(async (record) => {
+    for (const record of records) {
       const destructuredOldSlug = (record[slugFieldKey] as string).split("/");
       await client.items.update(record.id, {
         [slugFieldKey]:
@@ -32,13 +32,13 @@ export default async function updateAllChildrenSlugs(
           destructuredOldSlug[destructuredOldSlug.length - 1],
       });
 
-      updateAllChildrenSlugs(
+      await updateAllChildrenSlugs(
         apiToken,
         modelID,
         record.id,
         slugFieldKey,
         updatedSlug + "/" + destructuredOldSlug[destructuredOldSlug.length - 1]
       );
-    });
+    }
   }
 }

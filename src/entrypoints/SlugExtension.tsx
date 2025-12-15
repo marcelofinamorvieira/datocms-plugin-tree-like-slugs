@@ -4,6 +4,6 @@ type PropTypes = {
   ctx: RenderFieldExtensionCtx;
 };
 
-export default function SlugExtension({ ctx }: PropTypes) {
+export default function SlugExtension({}: PropTypes) {
   return <></>;
 }

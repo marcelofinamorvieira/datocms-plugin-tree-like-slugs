@@ -1,16 +1,16 @@
 {
   "name": "datocms-plugin-tree-like-slugs",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": false,
   "homepage": "https://github.com/marcelofinamorvieira/datocms-plugin-tree-like-slugs",
-  "description": "A plugin that makes it so the slugs in tree-like records are passed down to the child records",
+  "description": "A plugin that makes it so the slugs in models with Hierarchical Sorting (tree-like models) are passed down to child records",
   "keywords": [
     "datocms-plugin",
     "slug",
     "tree"
   ],
   "datoCmsPlugin": {
-    "title": "Tree-like slugs",
+    "title": "Tree-like slugs (for models with Hierarchcal Sorting)",
     "coverImage": "docs/cover.png",
     "previewImage": "docs/preview.mp4",
     "entryPoint": "build/index.html",
@@ -18,44 +18,29 @@
       "currentUserAccessToken"
     ]
   },
+  "files": [
+    "dist",
+    "docs"
+  ],
   "scripts": {
-    "start": "cross-env BROWSER='none' PUBLIC_URL='/' react-scripts start",
-    "build": "cross-env PUBLIC_URL='.' react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
     "prepublishOnly": "npm run build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "datocms-plugin-sdk": "*",
+    "datocms-react-ui": "*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@datocms/cma-client-browser": "^5.2.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "react-scripts": "^5.0.1"
-  },
-  "dependencies": {
-    "@types/node": "^18.15.11",
-    "@types/react": "^18.0.32",
-    "@types/react-dom": "^18.0.11",
-    "datocms-plugin-sdk": "^0.7.4",
-    "datocms-react-ui": "^0.7.4",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.9.5",
-    "@datocms/cma-client-browser": "^1.2.9"
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "globals": "^15.9.0",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.1"
   }
 }
