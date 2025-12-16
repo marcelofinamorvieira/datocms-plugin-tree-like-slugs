@@ -1,14 +1,16 @@
 import { buildClient } from "@datocms/cma-client-browser";
 
 export default async function updateAllChildrenSlugs(
-  apiToken: string,
-  modelID: string,
-  parentID: string,
-  slugFieldKey: string,
-  updatedSlug: string
+    apiToken: string,
+    modelID: string,
+    parentID: string,
+    slugFieldKey: string,
+    updatedSlug: string,
+    env: string,
 ) {
   const client = buildClient({
     apiToken,
+    environment: env
   });
 
   const records = await client.items.list({
@@ -27,17 +29,18 @@ export default async function updateAllChildrenSlugs(
       const destructuredOldSlug = (record[slugFieldKey] as string).split("/");
       await client.items.update(record.id, {
         [slugFieldKey]:
-          updatedSlug +
-          "/" +
-          destructuredOldSlug[destructuredOldSlug.length - 1],
+            updatedSlug +
+            "/" +
+            destructuredOldSlug[destructuredOldSlug.length - 1],
       });
 
       await updateAllChildrenSlugs(
-        apiToken,
-        modelID,
-        record.id,
-        slugFieldKey,
-        updatedSlug + "/" + destructuredOldSlug[destructuredOldSlug.length - 1]
+          apiToken,
+          modelID,
+          record.id,
+          slugFieldKey,
+          updatedSlug + "/" + destructuredOldSlug[destructuredOldSlug.length - 1],
+          env
       );
     }
   }

@@ -70,7 +70,8 @@ connect({
       createOrUpdateItemPayload.data.relationships!.item_type!.data.id,
       createOrUpdateItemPayload.data.id!,
       updatedFieldKey,
-      createOrUpdateItemPayload.data.attributes![updatedFieldKey] as string
+      createOrUpdateItemPayload.data.attributes![updatedFieldKey] as string,
+      ctx.environment
     );
 
     return true;
