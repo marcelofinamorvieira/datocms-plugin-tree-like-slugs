@@ -19,5 +19,6 @@ With the plugin, after updating the Grandparent record:
     *  Child: /grandparent-new/parent/child
 
 ## Changelog
+- 0.5.0: Bugfix: Now correctly works in sandbox environments. It was previously always using the primary env's data.  
 - 0.3.1: Dependency updates and bug fixes. Migrated to newer plugin SDK version.
 - 0.3.0: Previous release
